@@ -2,7 +2,6 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
 mongoose.Promise = global.Promise
-const db = mongoose.connection;
 
 const { Player, Character, Team } = require('./schema')
 const characters = require('./characters')
@@ -45,20 +44,20 @@ const secondTeam = new Team({ name: "Barely Played It", characterOne: characterF
 musa.teams = [myTeam, secondTeam]
 
 myTeam.save()
-.then((team) => {
-    console.log(`${team.name} saved`)
-})
-.catch((error) => {
-    console.log(error)
-})
+    .then((team) => {
+        console.log(`${team.name} saved`)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 
 secondTeam.save()
-.then((team) => {
-    console.log(`${team.name} saved`)
-})
-.catch((error) => {
-    console.log(error)
-})
+    .then((team) => {
+        console.log(`${team.name} saved`)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
 
 musa.save()
     .then((player) => {
@@ -69,12 +68,8 @@ musa.save()
     })
 
 
-characters.forEach((character) => {
-    character.save()
-        .then((character) => {
-            console.log(`${character.name} saved!`)
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+ characters.forEach( async (character) => {
+    await character.save()
+    console.log(`${character.name} saved!`)
+    mongoose.connection.close();
 })
