@@ -11,7 +11,6 @@ class PlayerList extends Component {
     async componentWillMount() {
         try {
             const res = await axios.get('/api/players')
-            console.log(res.data)
             this.setState({ players: res.data })
         } catch (error) {
             console.log(error)
