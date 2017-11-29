@@ -28,6 +28,7 @@ class Player extends Component {
                 {this.state.player.teams.map(team => {
                     return <TeamCard key={team._id} team={team}/>
                 })}
+                <button>Add New Team</button>
             </div>
         );
     }
