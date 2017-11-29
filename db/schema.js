@@ -7,7 +7,7 @@ const CharacterSchema = new Schema({
 });
 
 const TeamSchema = new Schema({
-    name: String,
+    nickname: String,
     characterOne: [CharacterSchema],
     characterTwo: [CharacterSchema],
     characterThree: [CharacterSchema]

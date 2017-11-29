@@ -6,6 +6,10 @@ const app = express();
 mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
+const PlayersController = require('./controllers/PlayersController')
+const CharactersController = require('./controllers/CharactersController')
+const TeamsController = require('./controllers/TeamsController')
+
 const connection = mongoose.connection;
 connection.on('connected', () => {
   console.log('Mongoose Connected Successfully');    
@@ -18,6 +22,10 @@ connection.on('error', (err) => {
 
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client/build/'));
+app.use('/api/players', PlayersController);
+app.use('/api/characters', CharactersController);
+app.use('/api/teams', TeamsController);
+
 
 app.get('/', (req, res) => {
     res.sendFile(`${__dirname}/client/build/index.html`)
