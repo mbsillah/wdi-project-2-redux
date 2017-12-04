@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import PlayerCard from './PlayerCard'
+import styled from 'styled-components'
+
+const PlayerCards = styled.div`
+    display: flex;
+    justify-content: space-around;
+    img {
+        width: 100px;
+        height: 100px;
+    }
+`
 
 class PlayerList extends Component {
 
@@ -19,11 +29,11 @@ class PlayerList extends Component {
 
     render() {
         return (
-            <div>
+            <PlayerCards>
                 {this.state.players.map(player => {
                     return <PlayerCard key={player._id} player={player} />
                 })}
-            </div>
+            </PlayerCards>
         );
     }
 }
