@@ -14,9 +14,19 @@ router.get('/', async (req, res) => {
 router.post('/new', async (req, res) => {
     try {
         console.log(req.body)
-        const newUser = new User(req.body.user)
-        const saved = await newUser.save()
+        const newTeam = new Team(req.body.team)
+        const saved = await newTeam.save()
         res.json(saved)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
+router.put('/:id/edit', async (req, res) => {
+    try {
+        console.log(req.body)
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body.user, { new: true })
+        res.json(updatedUser)
     } catch (err) {
         res.send(err)
     }

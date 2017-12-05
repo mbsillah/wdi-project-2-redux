@@ -11,13 +11,12 @@ router.get('/', async (req, res) => {
     }
 })
 
-router.put('/:id/edit', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        console.log(req.body)
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body.user, { new: true })
-        res.json(updatedUser)
-    } catch (err) {
-        res.send(err)
+        const character = await Character.findById(req.params.id)
+        res.json(character)
+    } catch (error) {
+        console.log(error)
     }
 })
 

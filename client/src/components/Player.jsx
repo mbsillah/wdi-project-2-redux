@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import TeamCard from './TeamCard'
+import NewTeam from './NewTeam'
 
 class Player extends Component {
 
@@ -8,7 +9,8 @@ class Player extends Component {
         player: {
             teams: []
         },
-        characters: []
+        characters: [],
+        newTeamForm: false
     }
 
     async componentWillMount() {
@@ -25,10 +27,14 @@ class Player extends Component {
     getCharacters = async () => {
         try {
             const res = await axios.get(`/api/characters`)
-            this.setState({ characters: res.data})
+            this.setState({ characters: res.data })
         } catch (error) {
             console.log(error)
         }
+    }
+
+    toggleNewTeamForm() {
+        this.setState({ newTeamForm: !this.state.newTeamForm })
     }
 
     render() {
@@ -39,7 +45,8 @@ class Player extends Component {
                 {this.state.player.teams.map(team => {
                     return <TeamCard key={team._id} team={team} characters={this.state.characters}/>
                 })}
-                <button>Add New Team</button>
+                {this.state.newTeamForm ?  <NewTeam characters={this.state.characters} /> : null}
+                <button onClick={() => this.toggleNewTeamForm()}>Add New Team</button>
             </div>
         );
     }

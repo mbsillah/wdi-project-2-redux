@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const PlayerCards = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     img {
         width: 100px;
         height: 100px;

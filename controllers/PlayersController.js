@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router({mergeParams: true})
+const router = express.Router({ mergeParams: true })
 const { Player } = require('../db/schema')
 
 router.get('/', async (req, res) => {
@@ -19,5 +19,7 @@ router.get('/:id', async (req, res) => {
         res.send(error)
     }
 })
+
+
 
 module.exports = router;
