@@ -11,6 +11,15 @@ const TitleStyle = styled.div`
     text-align: center
 `
 
+const TeamContainer = styled.div`
+    border-style: solid;
+    ul {
+        list-style: none;
+        display: flex;
+        justify-content: space-around;
+    }
+`
+
 class TeamCard extends Component {
 
     state = {
@@ -23,7 +32,7 @@ class TeamCard extends Component {
 
     render() {
         return (
-            <div>
+            <TeamContainer>
                 <TitleStyle>
                     <h4>{this.props.team.nickname}</h4>
                 </TitleStyle>
@@ -36,7 +45,7 @@ class TeamCard extends Component {
                     <li><button>Edit Team</button></li>
                     <li><button>Delete Team</button></li>
                 </ul>
-            </div>
+            </TeamContainer>
         );
     }
 }

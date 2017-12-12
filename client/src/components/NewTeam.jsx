@@ -44,11 +44,10 @@ class NewTeam extends Component {
 
     handleSubmit = async (event) => {
         try {
-            event.preventDefault()
-            const res = await axios.post('/api/teams/new', {
+            const res = await axios.post(`/api/${this.props.player._id}/teams/new`, {
                 'team': this.state
             })
-            console.log(res)
+            console.log(res.data)
         } catch (error) {
             console.log(error)
         }
@@ -60,10 +59,10 @@ class NewTeam extends Component {
                 <h4>Set your new Team</h4>
                 <form onSubmit={this.handleSubmit}>
                     <input type="nickname" placeholder="Team Nickname" onChange={this.handleChange} />
+                    <CharacterSelector characters={this.props.characters} setCharacterOne={this.setCharacterOne} setCharacterTwo={this.setCharacterTwo} setCharacterThree={this.setCharacterThree} />
                     <button>Submit</button>
                 </form>
-                <CharacterSelector characters={this.props.characters} setCharacterOne={this.setCharacterOne} setCharacterTwo={this.setCharacterTwo} setCharacterThree={this.setCharacterThree} />
-                <button>Submit</button>
+                
             </div>
         );
     }

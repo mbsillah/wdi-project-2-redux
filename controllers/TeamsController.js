@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router({mergeParams: true})
-const { Team } = require('../db/schema')
+const { Team, Player } = require('../db/schema')
 
 router.get('/', async (req, res) => {
     try {
@@ -13,9 +13,10 @@ router.get('/', async (req, res) => {
 
 router.post('/new', async (req, res) => {
     try {
-        console.log(req.body)
-        const newTeam = new Team(req.body.team)
-        const saved = await newTeam.save()
+        const currentPlayer = await Player.findById(req.params.playerId)
+        const newTeam = await new Team(req.body.team).save()
+        await currentPlayer.teams.push(newTeam)
+        const saved = await currentPlayer.save()
         res.json(saved)
     } catch (err) {
         res.send(err)
@@ -24,8 +25,7 @@ router.post('/new', async (req, res) => {
 
 router.put('/:id/edit', async (req, res) => {
     try {
-        console.log(req.body)
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body.user, { new: true })
+        const updatedUser = await Team.findByIdAndUpdate(req.params.id, req.body.user, { new: true })
         res.json(updatedUser)
     } catch (err) {
         res.send(err)
@@ -34,8 +34,7 @@ router.put('/:id/edit', async (req, res) => {
 
 router.delete('/:id/delete', async (req, res) => {
     try {
-        console.log(req.body)
-        const deletedUser = await User.findByIdAndRemove(req.params.id)
+        const deletedTeam = await Team.findByIdAndRemove(req.params.id)
         res.json(deletedUser)
     } catch (error) {
         res.send(error)

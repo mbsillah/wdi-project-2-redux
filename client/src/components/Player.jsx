@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import styled from 'styled-components'
 import TeamCard from './TeamCard'
 import NewTeam from './NewTeam'
+
+const PlayerStyle = styled.div`
+    h1 {
+        text-align: center;
+    }
+`
 
 class Player extends Component {
 
@@ -39,15 +46,15 @@ class Player extends Component {
 
     render() {
         return (
-            <div>
+            <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
                 <img src={this.state.player.img} alt={this.state.player.firstName}/>
                 {this.state.player.teams.map(team => {
                     return <TeamCard key={team._id} team={team} characters={this.state.characters}/>
                 })}
-                {this.state.newTeamForm ?  <NewTeam characters={this.state.characters} /> : null}
+                {this.state.newTeamForm ?  <NewTeam player={this.state.player} characters={this.state.characters} updateTeams={this.updateTeams} /> : null}
                 <button onClick={() => this.toggleNewTeamForm()}>Add New Team</button>
-            </div>
+            </PlayerStyle>
         );
     }
 }

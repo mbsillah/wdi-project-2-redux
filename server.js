@@ -23,8 +23,9 @@ connection.on('error', (err) => {
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client/build/'));
 app.use('/api/players', PlayersController);
+app.use('/api/:playerId/teams', TeamsController);
 app.use('/api/characters', CharactersController);
-app.use('/api/teams', TeamsController);
+
 
 
 app.get('/', (req, res) => {
