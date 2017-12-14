@@ -13,9 +13,8 @@ const PlayerStyle = styled.div`
 class Player extends Component {
 
     state = {
-        player: {
-            teams: []
-        },
+        player: {},
+        teams: [],
         characters: [],
         newTeamForm: false
     }
@@ -24,10 +23,24 @@ class Player extends Component {
         try {
             const { playerId } = this.props.match.params
             const res = await axios.get(`/api/players/${playerId}`)
-            this.setState({ player: res.data })
+            const teams = res.data.teams
+            this.setState({ player: res.data, teams: teams })
             this.getCharacters()
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    async componentDidUpdate(prevState) {
+        if (prevState.teams !== this.state.teams) {
+            try {
+                const { playerId } = this.props.match.params
+                const res = await axios.get(`/api/players/${playerId}`)
+                const teams = res.data.teams
+                this.setState({ player: res.data, teams: teams })
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
 
@@ -44,15 +57,21 @@ class Player extends Component {
         this.setState({ newTeamForm: !this.state.newTeamForm })
     }
 
+    updatingTeams(newTeam) {
+        const updatedTeams = [...this.state.teams]
+        updatedTeams.push(newTeam)
+        this.setState({ teams: updatedTeams })
+    }
+
     render() {
         return (
             <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
-                <img src={this.state.player.img} alt={this.state.player.firstName}/>
-                {this.state.player.teams.map(team => {
-                    return <TeamCard key={team._id} team={team} characters={this.state.characters}/>
+                <img src={this.state.player.img} alt={this.state.player.firstName} />
+                {this.state.teams.map(team => {
+                    return <TeamCard key={team._id} team={team} characters={this.state.characters} />
                 })}
-                {this.state.newTeamForm ?  <NewTeam player={this.state.player} characters={this.state.characters} updateTeams={this.updateTeams} /> : null}
+                {this.state.newTeamForm ? <NewTeam player={this.state.player} characters={this.state.characters} updatingTeams={this.updatingTeams} /> : null}
                 <button onClick={() => this.toggleNewTeamForm()}>Add New Team</button>
             </PlayerStyle>
         );

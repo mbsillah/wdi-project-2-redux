@@ -44,10 +44,11 @@ class NewTeam extends Component {
 
     handleSubmit = async (event) => {
         try {
-            const res = await axios.post(`/api/${this.props.player._id}/teams/new`, {
+            event.preventDefault()
+            await axios.post(`/api/${this.props.player._id}/teams/new`, {
                 'team': this.state
             })
-            console.log(res.data)
+            this.props.updatingTeams(this.state)
         } catch (error) {
             console.log(error)
         }
