@@ -41,19 +41,19 @@ class Player extends Component {
         }
     }
 
-    toggleNewTeamForm() {
+    toggleNewTeamForm = () => {
         this.setState({ newTeamForm: !this.state.newTeamForm })
     }
 
-    updatingTeams = (newTeam) => {
-        const updatedTeams = [...this.state.teams]
-        updatedTeams.push(newTeam)
-        this.setState({ teams: updatedTeams })
-        this.toggleNewTeamForm();
-    }
-
-    deleteTeam = (deletedTeam) => {
-        
+    updatingTeams = async () => {
+        try {
+            const { playerId } = this.props.match.params
+            const res = await axios.get(`/api/players/${playerId}`)
+            const updatedTeams = res.data.teams
+            this.setState({ teams: updatedTeams })       
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
@@ -61,10 +61,11 @@ class Player extends Component {
             <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
                 <img src={this.state.player.img} alt={this.state.player.firstName} />
-                <TeamContainer teams={this.state.teams} />
+                <TeamContainer player={this.state.player} teams={this.state.teams} updatingTeams={this.updatingTeams}/>
                 {this.state.newTeamForm ? <NewTeam player={this.state.player} 
                 characters={this.state.characters}
                 teams={this.state.teams} 
+                toggleNewTeamForm={this.toggleNewTeamForm}
                 updatingTeams={this.updatingTeams} /> : null}
                 <button onClick={() => this.toggleNewTeamForm()}>Add New Team</button>
             </PlayerStyle>

@@ -49,6 +49,7 @@ class NewTeam extends Component {
                 'team': this.state
             })
             this.props.updatingTeams(this.state)
+            this.props.toggleNewTeamForm()
         } catch (error) {
             console.log(error)
         }
