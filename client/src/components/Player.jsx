@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 import styled from 'styled-components'
-import TeamCard from './TeamCard'
+import TeamContainer from './TeamContainer'
 import NewTeam from './NewTeam'
 
 const PlayerStyle = styled.div`
@@ -31,18 +31,6 @@ class Player extends Component {
         }
     }
 
-    async componentDidUpdate(prevState) {
-        if (prevState.teams !== this.state.teams) {
-            try {
-                const { playerId } = this.props.match.params
-                const res = await axios.get(`/api/players/${playerId}`)
-                const teams = res.data.teams
-                this.setState({ player: res.data, teams: teams })
-            } catch (error) {
-                console.log(error)
-            }
-        }
-    }
 
     getCharacters = async () => {
         try {
@@ -57,10 +45,15 @@ class Player extends Component {
         this.setState({ newTeamForm: !this.state.newTeamForm })
     }
 
-    updatingTeams(newTeam) {
+    updatingTeams = (newTeam) => {
         const updatedTeams = [...this.state.teams]
         updatedTeams.push(newTeam)
         this.setState({ teams: updatedTeams })
+        this.toggleNewTeamForm();
+    }
+
+    deleteTeam = (deletedTeam) => {
+        
     }
 
     render() {
@@ -68,10 +61,11 @@ class Player extends Component {
             <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
                 <img src={this.state.player.img} alt={this.state.player.firstName} />
-                {this.state.teams.map(team => {
-                    return <TeamCard key={team._id} team={team} characters={this.state.characters} />
-                })}
-                {this.state.newTeamForm ? <NewTeam player={this.state.player} characters={this.state.characters} updatingTeams={this.updatingTeams} /> : null}
+                <TeamContainer teams={this.state.teams} />
+                {this.state.newTeamForm ? <NewTeam player={this.state.player} 
+                characters={this.state.characters}
+                teams={this.state.teams} 
+                updatingTeams={this.updatingTeams} /> : null}
                 <button onClick={() => this.toggleNewTeamForm()}>Add New Team</button>
             </PlayerStyle>
         );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CharacterCard from './CharacterCard'
 import styled from 'styled-components'
+//import axios from 'axios'
 
 const TeamStyle = styled.div`
     display: flex;
@@ -29,6 +30,15 @@ class TeamCard extends Component {
     changeEditToggle = () => {
         this.setState({ editToggle: !this.state.editToggle })
     }
+
+    //deleteTeam = async () => {
+    //    try {
+    //      const res = await axios.delete(`/api/${this.props.player._id}/teams/${this.props.team._id}/delete`)
+    //      this.props.deleteTeamAndUpdate(this.props.team)
+    //    } catch (error) {
+    //        console.log(error)
+    //    }
+    //}
 
     render() {
         return (

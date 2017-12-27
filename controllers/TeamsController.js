@@ -25,7 +25,7 @@ router.post('/new', async (req, res) => {
 
 router.put('/:id/edit', async (req, res) => {
     try {
-        const updatedUser = await Team.findByIdAndUpdate(req.params.id, req.body.user, { new: true })
+        const updatedTeam = await Team.findByIdAndUpdate(req.params.id, req.body.user, { new: true })
         res.json(updatedUser)
     } catch (err) {
         res.send(err)
@@ -34,8 +34,16 @@ router.put('/:id/edit', async (req, res) => {
 
 router.delete('/:id/delete', async (req, res) => {
     try {
-        const deletedTeam = await Team.findByIdAndRemove(req.params.id)
-        res.json(deletedUser)
+        const currentTeamId = req.params.id
+        const playerId = req.params.playerId
+        await Player.findById(playerId, (err, player) => {
+            if (!err) {
+                player.teams.id(currentTeamId).remove()
+                player.save()
+            }
+        })
+        const deletedTeam = await Team.findByIdAndRemove(currentTeamId)
+        res.json(deletedTeam)
     } catch (error) {
         res.send(error)
     }
