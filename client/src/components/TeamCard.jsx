@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CharacterCard from './CharacterCard'
+import EditTeam from './EditTeam'
 import styled from 'styled-components'
 import axios from 'axios'
 
@@ -52,9 +53,15 @@ class TeamCard extends Component {
                     <CharacterCard character={this.props.team.characterThree[0]} />
                 </TeamStyle>
                 <ul>
-                    <li><button>Edit Team</button></li>
+                    <li><button onClick={this.changeEditToggle}>Edit Team</button></li>
                     <li><button onClick={this.deleteTeam}>Delete Team</button></li>
                 </ul>
+                {this.state.editToggle ? <EditTeam 
+                player={this.props.player} 
+                characters={this.props.characters} 
+                team={this.props.team}
+                updatingTeams={this.props.updatingTeams}
+                changeEditToggle={this.changeEditToggle} /> : null}
             </TeamContainer>
         );
     }

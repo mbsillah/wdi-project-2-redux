@@ -25,7 +25,15 @@ router.post('/new', async (req, res) => {
 
 router.put('/:id/edit', async (req, res) => {
     try {
-        const updatedTeam = await Team.findByIdAndUpdate(req.params.id, req.body.user, { new: true })
+        const currentTeamId = req.params.id
+        const playerId = req.params.playerId
+        await Player.findById(playerId, (err, player) => {
+            if (!err) {
+                player.teams.id(currentTeamId).set(req.body.team)
+                player.save()
+            }
+        })
+        const updatedTeam = await Team.findByIdAndUpdate(currentTeamId, req.body.team, { new: true })
         res.json(updatedUser)
     } catch (err) {
         res.send(err)

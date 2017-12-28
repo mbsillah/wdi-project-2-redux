@@ -48,7 +48,7 @@ class NewTeam extends Component {
             await axios.post(`/api/${this.props.player._id}/teams/new`, {
                 'team': this.state
             })
-            this.props.updatingTeams(this.state)
+            this.props.updatingTeams()
             this.props.toggleNewTeamForm()
         } catch (error) {
             console.log(error)
@@ -64,7 +64,6 @@ class NewTeam extends Component {
                     <CharacterSelector characters={this.props.characters} setCharacterOne={this.setCharacterOne} setCharacterTwo={this.setCharacterTwo} setCharacterThree={this.setCharacterThree} />
                     <button>Submit</button>
                 </form>
-                
             </div>
         );
     }

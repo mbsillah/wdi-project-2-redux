@@ -61,7 +61,7 @@ class Player extends Component {
             <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
                 <img src={this.state.player.img} alt={this.state.player.firstName} />
-                <TeamContainer player={this.state.player} teams={this.state.teams} updatingTeams={this.updatingTeams}/>
+                <TeamContainer player={this.state.player} characters={this.state.characters} teams={this.state.teams} updatingTeams={this.updatingTeams}/>
                 {this.state.newTeamForm ? <NewTeam player={this.state.player} 
                 characters={this.state.characters}
                 teams={this.state.teams} 

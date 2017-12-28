@@ -13,6 +13,7 @@ class TeamContainer extends Component {
                     {this.props.teams.map(team => {
                         return <TeamCard key={team._id}
                             player={this.props.player} team={team}
+                            characters={this.props.characters}
                             updatingTeams={this.props.updatingTeams} />
                     })}
                 </div>
