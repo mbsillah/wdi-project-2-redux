@@ -21,6 +21,15 @@ router.post('/new', async (req, res) => {
     }
 })
 
+router.put('/:id/edit', async (req, res) => {
+    try {
+        const updatedPlayer = await Player.findByIdAndUpdate(req.params.id, req.body.player, { new: true })
+        res.json(updatedPlayer)
+    } catch (err) {
+        res.send(err)
+    }
+})
+
 router.get('/:id', async (req, res) => {
     try {
         const player = await Player.findById(req.params.id)

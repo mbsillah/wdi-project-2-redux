@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import HomePage from './components/HomePage'
 import Player from './components/Player'
 import NewPlayer from './components/NewPlayer'
+import EditPlayer from './components/EditPlayer'
 import Footer from './components/Footer'
 
 class App extends Component {
@@ -14,8 +15,9 @@ class App extends Component {
           <Navbar />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route exact path="/player/:playerId" component={Player} />
             <Route exact path="/new" component={NewPlayer} />
+            <Route exact path="/player/:playerId" component={Player} />
+            <Route exact path="/player/:playerId/edit" component={EditPlayer} />
           </Switch>
           <Footer />
         </div>
