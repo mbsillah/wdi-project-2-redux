@@ -34,8 +34,8 @@ class TeamCard extends Component {
 
     deleteTeam = async () => {
         try {
-          await axios.delete(`/api/${this.props.player._id}/teams/${this.props.team._id}/delete`)
-          this.props.updatingTeams()
+            await axios.delete(`/api/${this.props.player._id}/teams/${this.props.team._id}/delete`)
+            this.props.updatingTeams()
         } catch (error) {
             console.log(error)
         }
@@ -53,15 +53,15 @@ class TeamCard extends Component {
                     <CharacterCard character={this.props.team.characterThree[0]} />
                 </TeamStyle>
                 <ul>
-                    <li><button onClick={this.changeEditToggle}>Edit Team</button></li>
+                    {this.state.editToggle ? <li><button onClick={this.changeEditToggle}>Cancel</button></li> : <li><button onClick={this.changeEditToggle}>Edit Team</button></li>}
                     <li><button onClick={this.deleteTeam}>Delete Team</button></li>
                 </ul>
-                {this.state.editToggle ? <EditTeam 
-                player={this.props.player} 
-                characters={this.props.characters} 
-                team={this.props.team}
-                updatingTeams={this.props.updatingTeams}
-                changeEditToggle={this.changeEditToggle} /> : null}
+                {this.state.editToggle ? <EditTeam
+                    player={this.props.player}
+                    characters={this.props.characters}
+                    team={this.props.team}
+                    updatingTeams={this.props.updatingTeams}
+                    changeEditToggle={this.changeEditToggle} /> : null}
             </TeamContainer>
         );
     }

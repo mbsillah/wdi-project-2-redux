@@ -38,7 +38,7 @@ const characterSix = characters.filter((character) => {
 })
 
 
-const musa = new Player({ firstName: "Musa", lastName: "Sillah", gamertag: `GB | Musa`, img: `https://i.imgur.com/Tf2Z9dj.jpg`, twitter: "twitter.com/MusaFGC" })
+const musa = new Player({ firstName: "Musa", lastName: "Sillah", gamertag: `GB | Musa`, img: `https://i.imgur.com/Tf2Z9dj.jpg`, twitter: "MusaFGC" })
 const myTeam = new Team({ nickname: "Follow My Lead", characterOne: characterOne, characterTwo: characterTwo, characterThree: characterThree })
 const secondTeam = new Team({ nickname: "Barely Played It", characterOne: characterFour, characterTwo: characterFive, characterThree: characterSix })
 musa.teams = [myTeam, secondTeam]

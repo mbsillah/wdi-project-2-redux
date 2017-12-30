@@ -14,11 +14,20 @@ const TeamSchema = new Schema({
 })
 
 const PlayerSchema = new Schema({
-    firstName: String,
-    lastName: String,
-    gamertag: String,
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    gamertag: {
+        type: String,
+        required: true
+    },
     img: String,
-    twitterHandle: String,
+    twitter: String,
     teams: [TeamSchema]
 
 });

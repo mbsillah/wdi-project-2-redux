@@ -11,6 +11,16 @@ router.get('/', async (req, res) => {
     }
 })
 
+router.post('/new', async (req, res) => {
+    try {
+        const newPlayer = new Player(req.body.player)
+        const saved = await newPlayer.save()
+        res.json(saved)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
 router.get('/:id', async (req, res) => {
     try {
         const player = await Player.findById(req.params.id)

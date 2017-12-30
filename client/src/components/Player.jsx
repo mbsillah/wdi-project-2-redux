@@ -31,7 +31,6 @@ class Player extends Component {
         }
     }
 
-
     getCharacters = async () => {
         try {
             const res = await axios.get(`/api/characters`)
@@ -50,7 +49,7 @@ class Player extends Component {
             const { playerId } = this.props.match.params
             const res = await axios.get(`/api/players/${playerId}`)
             const updatedTeams = res.data.teams
-            this.setState({ teams: updatedTeams })       
+            this.setState({ teams: updatedTeams })
         } catch (error) {
             console.log(error)
         }
@@ -60,14 +59,15 @@ class Player extends Component {
         return (
             <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
+                {this.state.player.twitter !== undefined ? <p>Follow me on <a target="_blank" href={`https://twitter.com/${this.state.player.twitter}`}>Twitter</a></p> : null}
                 <img src={this.state.player.img} alt={this.state.player.firstName} />
-                <TeamContainer player={this.state.player} characters={this.state.characters} teams={this.state.teams} updatingTeams={this.updatingTeams}/>
-                {this.state.newTeamForm ? <NewTeam player={this.state.player} 
-                characters={this.state.characters}
-                teams={this.state.teams} 
-                toggleNewTeamForm={this.toggleNewTeamForm}
-                updatingTeams={this.updatingTeams} /> : null}
-                <button onClick={() => this.toggleNewTeamForm()}>Add New Team</button>
+                <TeamContainer player={this.state.player} characters={this.state.characters} teams={this.state.teams} updatingTeams={this.updatingTeams} />
+                {this.state.newTeamForm ? <NewTeam player={this.state.player}
+                    characters={this.state.characters}
+                    teams={this.state.teams}
+                    toggleNewTeamForm={this.toggleNewTeamForm}
+                    updatingTeams={this.updatingTeams} /> : null}
+                {this.state.newTeamForm ? <button onClick={() => this.toggleNewTeamForm()}>Cancel</button> : <button onClick={() => this.toggleNewTeamForm()}>Add New Team</button>}
             </PlayerStyle>
         );
     }
