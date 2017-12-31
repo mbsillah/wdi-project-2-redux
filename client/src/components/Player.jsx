@@ -62,7 +62,7 @@ class Player extends Component {
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
                 {this.state.player.twitter ? <p>Follow me on <a target="_blank" href={`https://twitter.com/${this.state.player.twitter}`}>Twitter</a></p> : null}
                 <p><Link to={`/player/${this.state.player._id}/edit`}>Edit Profile</Link></p>
-                <img src={this.state.player.img} alt={this.state.player.firstName} />
+                <img className="profilePic" src={this.state.player.img} alt={this.state.player.firstName} />
                 <TeamContainer player={this.state.player} characters={this.state.characters} teams={this.state.teams} updatingTeams={this.updatingTeams} />
                 {this.state.newTeamForm ? <NewTeam player={this.state.player}
                     characters={this.state.characters}
