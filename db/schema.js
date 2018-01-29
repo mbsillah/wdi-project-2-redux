@@ -6,11 +6,23 @@ const CharacterSchema = new Schema({
     img: String
 });
 
-const TeamSchema = new Schema({
+const MVCICharacterSchema = new Schema({
+    name: String,
+    img: String
+});
+
+const UMVC3TeamSchema = new Schema({
     nickname: String,
     characterOne: [CharacterSchema],
     characterTwo: [CharacterSchema],
     characterThree: [CharacterSchema]
+})
+
+const MVCITeamSchema = new Schema({
+    nickname: String,
+    characterOne: [CharacterSchema],
+    characterTwo: [CharacterSchema],
+    infinityStone: String
 })
 
 const PlayerSchema = new Schema({
@@ -28,14 +40,16 @@ const PlayerSchema = new Schema({
     },
     img: String,
     twitter: String,
-    teams: [TeamSchema]
-
+    umvc3Teams: [UMVC3TeamSchema],
+    mvciTeams: [MVCITeamSchema]
 });
 
 const Player = mongoose.model('Player', PlayerSchema);
 const Character = mongoose.model('Character', CharacterSchema);
-const Team = mongoose.model('Team', TeamSchema);
+const MVCICharacter = mongoose.model('MVCICharacter', MVCICharacterSchema);
+const UMVC3Team = mongoose.model('UMVC3Team', UMVC3TeamSchema);
+const MVCITeam = mongoose.model('MVCITeam', MVCITeamSchema);
 
 module.exports = {
-    Player, Character, Team
+    Player, Character, MVCICharacter, UMVC3Team, MVCITeam
 }
