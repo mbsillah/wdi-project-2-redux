@@ -9,7 +9,7 @@ class TeamContainer extends Component {
         } else {
             return (
                 <div>
-                    <h1>THE TEAMS</h1>
+                    <h1>Marvel vs Capcom 3 TEAMS</h1>
                     {this.props.teams.map(team => {
                         return <TeamCard key={team._id}
                             player={this.props.player} team={team}

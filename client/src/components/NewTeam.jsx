@@ -58,11 +58,12 @@ class NewTeam extends Component {
     render() {
         return (
             <div>
-                <h4>Set your new Team</h4>
+                <h4>Create your new team. There cannot be two or more of the same characters on a team</h4>
                 <form onSubmit={this.handleSubmit}>
                     <input type="nickname" placeholder="Team Nickname" onChange={this.handleChange} />
                     <CharacterSelector characters={this.props.characters} setCharacterOne={this.setCharacterOne} setCharacterTwo={this.setCharacterTwo} setCharacterThree={this.setCharacterThree} />
-                    <button>Submit</button>
+                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || this.state.characterTwo[0]._id === this.state.characterThree[0]._id || this.state.characterOne[0]._id === this.state.characterThree[0]._id ? 
+                    <button type="button" disabled>Submit</button> : <button>Submit</button> }
                 </form>
             </div>
         );

@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
 mongoose.Promise = global.Promise
 
-const { Player, Character, MVCICharacter, UMVC3Team, MVCITeam } = require('./schema')
+const { Player, Character, MVCICharacter, Team, MVCITeam } = require('./schema')
 const characters = require('./characters')
 const mvciCharacters = require('./mvciCharacters')
 
@@ -13,10 +13,7 @@ Player.remove({}, (err) => {
 Character.remove({}, (err) => {
     console.log(err);
 })
-MVCICharacter.remove({}, (err) => {
-    console.log(err)
-})
-UMVC3Team.remove({}, (err) => {
+Team.remove({}, (err) => {
     console.log(err)
 })
 MVCITeam.remove({}, (err) => {
@@ -67,11 +64,11 @@ const character10 = mvciCharacters.filter((character) => {
 
 
 const musa = new Player({ firstName: "Musa", lastName: "Sillah", gamertag: `GB | Musa`, img: `https://i.imgur.com/Tf2Z9dj.jpg`, twitter: "MusaFGC" })
-const myTeam = new UMVC3Team({ nickname: "Follow My Lead", characterOne: characterOne, characterTwo: characterTwo, characterThree: characterThree })
-const secondTeam = new UMVC3Team({ nickname: "Barely Played It", characterOne: characterFour, characterTwo: characterFive, characterThree: characterSix })
+const myTeam = new Team({ nickname: "Follow My Lead", characterOne: characterOne, characterTwo: characterTwo, characterThree: characterThree })
+const secondTeam = new Team({ nickname: "Barely Played It", characterOne: characterFour, characterTwo: characterFive, characterThree: characterSix })
 const firstMvciTeam = new MVCITeam({ nickname: "Day 1", characterOne: character9, characterTwo: character10, infinityStone: "Reality Stone" })
 const secondMvciTeam = new MVCITeam({ nickname: "Current Team", characterOne: character7, characterTwo: character8, infinityStone: "Space Stone" })
-musa.umvc3Teams = [myTeam, secondTeam]
+musa.teams = [myTeam, secondTeam]
 musa.mvciTeams = [firstMvciTeam, secondMvciTeam]
 
 myTeam.save()
@@ -116,11 +113,6 @@ musa.save()
 
 
 characters.forEach(async (character) => {
-    await character.save()
-    console.log(`${character.name} saved!`)
-})
-
-mvciCharacters.forEach(async (character) => {
     await character.save()
     console.log(`${character.name} saved!`)
     mongoose.connection.close();

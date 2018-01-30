@@ -4,8 +4,7 @@ import { Link } from 'react-router-dom';
 const Navbar = () => {
     return (
         <div> 
-            <Link to="/"><p>GA Marvel 3</p></Link>
-            <p>GA MVCI</p>
+            <Link to="/"><p>Home</p></Link>
         </div>
     );
 };

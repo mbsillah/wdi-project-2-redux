@@ -8,7 +8,9 @@ mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true });
 
 const PlayersController = require('./controllers/PlayersController')
 const CharactersController = require('./controllers/CharactersController')
+const MVCICharactersController = require('./controllers/MVCICharactersController')
 const TeamsController = require('./controllers/TeamsController')
+const MVCITeamsController = require('./controllers/MVCITeamsController')
 
 const connection = mongoose.connection;
 connection.on('connected', () => {
@@ -24,7 +26,10 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/client/build/'));
 app.use('/api/players', PlayersController);
 app.use('/api/:playerId/teams', TeamsController);
+app.use('/api/:playerId/mvciteams', MVCITeamsController);
 app.use('/api/characters', CharactersController);
+app.use('/api/mvcicharacters', MVCICharactersController)
+
 
 
 

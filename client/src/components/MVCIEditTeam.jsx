@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import EditCharacterSelector from './EditCharacterSelector'
+import MVCIEditCharacterSelector from './MVCIEditCharacterSelector'
 
-class EditTeam extends Component {
+class MVCIEditTeam extends Component {
 
     state = {
         nickname: '',
         characterOne: [{}],
         characterTwo: [{}],
-        characterThree: [{}],
+        infinityStone: ''
     }
 
     async componentWillMount() {
         const currentNickname = this.props.team.nickname
         const currentCharacter1 = this.props.team.characterOne
         const currentCharacter2 = this.props.team.characterTwo
-        const currentCharacter3 = this.props.team.characterThree
-        this.setState({ nickname: currentNickname, characterOne: currentCharacter1, characterTwo: currentCharacter2, characterThree: currentCharacter3 })
+        const currentInfinityStone = this.props.team.infinityStone
+        this.setState({ nickname: currentNickname, characterOne: currentCharacter1, characterTwo: currentCharacter2, infinityStone: currentInfinityStone })
     }
 
     setCharacterOne = async (characterId) => {
         try {
-            const res = await axios.get(`/api/characters/${characterId}`)
+            const res = await axios.get(`/api/mvcicharacters/${characterId}`)
             this.setState({ characterOne: [res.data] })
         } catch (error) {
             console.log(error)
@@ -30,31 +30,25 @@ class EditTeam extends Component {
 
     setCharacterTwo = async (characterId) => {
         try {
-            const res = await axios.get(`/api/characters/${characterId}`)
+            const res = await axios.get(`/api/mvcicharacters/${characterId}`)
             this.setState({ characterTwo: [res.data] })
         } catch (error) {
             console.log(error)
         }
     }
 
-    setCharacterThree = async (characterId) => {
-        try {
-            const res = await axios.get(`/api/characters/${characterId}`)
-            this.setState({ characterThree: [res.data] })
-        } catch (error) {
-            console.log(error)
-        }
+    setInfinityStone = (stone) => {
+        this.setState({ infinityStone: stone })
     }
 
     handleChange = (event) => {
         this.setState({ nickname: event.target.value })
     }
 
-
     handleSubmit = async (event) => {
         try {
             event.preventDefault()
-            await axios.put(`/api/${this.props.player._id}/teams/${this.props.team._id}/edit`, {
+            await axios.put(`/api/${this.props.player._id}/mvciteams/${this.props.team._id}/edit`, {
                 'team': this.state
             })
             this.props.updatingTeams()
@@ -64,26 +58,27 @@ class EditTeam extends Component {
         }
     }
 
+
     render() {
         return (
             <div>
-                <p className="characterWarning">There cannot be two or more of the same characters on a team</p>
+                <p className="characterWarning">There cannot be two of the same characters on a team!</p>
                 <form onSubmit={this.handleSubmit}>
                     <input type="nickname" placeholder="Team Nickname" onChange={this.handleChange} value={this.state.nickname} />
-                    <EditCharacterSelector
+                    <MVCIEditCharacterSelector
                         characterOne={this.state.characterOne}
                         characterTwo={this.state.characterTwo}
-                        characterThree={this.state.characterThree}
-                        characters={this.props.characters}
+                        infinityStone={this.state.infinityStone}
+                        mvciCharacters={this.props.mvciCharacters}
                         setCharacterOne={this.setCharacterOne}
                         setCharacterTwo={this.setCharacterTwo}
-                        setCharacterThree={this.setCharacterThree} />
-                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || this.state.characterTwo[0]._id === this.state.characterThree[0]._id || this.state.characterOne[0]._id === this.state.characterThree[0]._id ? 
-                    <button type="button" disabled>Submit</button> : <button>Submit</button> }
+                        setInfinityStone={this.setInfinityStone} />
+                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id ?
+                        <button type="button" disabled>Submit</button> : <button>Submit</button>}
                 </form>
             </div>
         );
     }
 }
 
-export default EditTeam;
+export default MVCIEditTeam;
