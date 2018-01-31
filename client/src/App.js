@@ -7,6 +7,7 @@ import NewPlayer from './components/NewPlayer'
 import EditPlayer from './components/EditPlayer'
 import Footer from './components/Footer'
 
+
 class App extends Component {
   render() {
     return (
