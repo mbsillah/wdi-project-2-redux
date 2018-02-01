@@ -13,11 +13,6 @@ class NewCharacterThree extends Component {
         this.props.setCharacterThree(value)
     }
 
-    handleIdChange = (id) => {
-        console.log(id)
-        this.setState({ id })
-    }
-
     render() {
         return (
             <div>

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import MVCIEditCharacterSelector from './MVCIEditCharacterSelector'
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import MVCIEditCharacterOne from './MVCIEditCharacterOne'
+import MVCIEditCharacterTwo from './MVCIEditCharacterTwo'
+import MVCIEditInfinityStone from './MVCIEditInfinityStone'
 
 class MVCIEditTeam extends Component {
 
@@ -64,17 +68,12 @@ class MVCIEditTeam extends Component {
             <div>
                 <p className="characterWarning">There cannot be two of the same characters on a team!</p>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="nickname" placeholder="Team Nickname" onChange={this.handleChange} value={this.state.nickname} />
-                    <MVCIEditCharacterSelector
-                        characterOne={this.state.characterOne}
-                        characterTwo={this.state.characterTwo}
-                        infinityStone={this.state.infinityStone}
-                        mvciCharacters={this.props.mvciCharacters}
-                        setCharacterOne={this.setCharacterOne}
-                        setCharacterTwo={this.setCharacterTwo}
-                        setInfinityStone={this.setInfinityStone} />
-                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id ?
-                        <button type="button" disabled>Submit</button> : <button>Submit</button>}
+                    <TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} />
+                    <MVCIEditCharacterOne characterOne={this.state.characterOne} mvciCharacters={this.props.mvciCharacters} />
+                    <MVCIEditCharacterTwo characterTwo={this.state.characterTwo} mvciCharacters={this.props.mvciCharacters} />
+                    <MVCIEditInfinityStone infinityStone={this.state.infinityStone} setInfinityStone={this.setInfinityStone} />
+                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id ?
+                        <RaisedButton label="Save" disabled={true} /> : <RaisedButton label="Save" type="submit" />}
                 </form>
             </div>
         );

@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-class NewCharacterTwo extends Component {
-
+class EditCharacterTwo extends Component {
     state = {
-        value: '1',
+        value: '',
+    }
+
+    componentWillMount() {
+        const id = this.props.characterTwo[0]._id
+        this.setState({ value: id })
     }
 
     handleChange = (event, index, value) => {
@@ -27,4 +31,4 @@ class NewCharacterTwo extends Component {
     }
 }
 
-export default NewCharacterTwo;
+export default EditCharacterTwo;

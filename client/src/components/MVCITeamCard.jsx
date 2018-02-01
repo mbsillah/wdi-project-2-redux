@@ -62,7 +62,7 @@ class MVCITeamCard extends Component {
         return (
             <TeamContainer>
                 <TitleStyle>
-                    <h4>{this.props.team.nickname}</h4>
+                    <h2>- {this.props.team.nickname} -</h2>
                 </TitleStyle>
                 <TeamStyle>
                     <MVCICharacterCard character={this.props.team.characterOne[0]} />

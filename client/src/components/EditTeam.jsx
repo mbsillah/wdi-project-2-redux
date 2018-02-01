@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import EditCharacterSelector from './EditCharacterSelector'
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import EditCharacterOne from './EditCharacterOne'
+import EditCharacterTwo from './EditCharacterTwo'
+import EditCharacterThree from './EditCharacterThree'
 
 class EditTeam extends Component {
 
@@ -67,19 +71,16 @@ class EditTeam extends Component {
     render() {
         return (
             <div>
-                <p className="characterWarning">There cannot be two or more of the same characters on a team</p>
+                <p className="characterWarning">There cannot be two or more of the same characters on a team!</p>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="nickname" placeholder="Team Nickname" onChange={this.handleChange} value={this.state.nickname} />
-                    <EditCharacterSelector
-                        characterOne={this.state.characterOne}
-                        characterTwo={this.state.characterTwo}
-                        characterThree={this.state.characterThree}
-                        characters={this.props.characters}
-                        setCharacterOne={this.setCharacterOne}
-                        setCharacterTwo={this.setCharacterTwo}
-                        setCharacterThree={this.setCharacterThree} />
-                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || this.state.characterTwo[0]._id === this.state.characterThree[0]._id || this.state.characterOne[0]._id === this.state.characterThree[0]._id ? 
-                    <button type="button" disabled>Submit</button> : <button>Submit</button> }
+                    <TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} />
+                    <EditCharacterOne characters={this.props.characters} characterOne={this.state.characterOne} setCharacterOne={this.setCharacterOne} />
+                    <EditCharacterTwo characters={this.props.characters} characterTwo={this.state.characterTwo} setCharacterTwo={this.setCharacterTwo} />
+                    <EditCharacterThree characters={this.props.characters} characterThree={this.state.characterThree} setCharacterThree={this.setCharacterThree} />
+                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || this.state.characterTwo[0]._id === this.state.characterThree[0]._id ||
+                        this.state.characterOne[0]._id === this.state.characterThree[0]._id ||
+                        !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id || !this.state.characterThree[0]._id ?
+                        <RaisedButton label="Save" disabled={true} /> : <RaisedButton label="Save" type="submit" />}
                 </form>
             </div>
         );

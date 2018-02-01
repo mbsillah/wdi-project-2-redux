@@ -46,7 +46,7 @@ class TeamCard extends Component {
         return (
             <TeamContainer>
                 <TitleStyle>
-                    <h2>{this.props.team.nickname}</h2>
+                    <h2>- {this.props.team.nickname} -</h2>
                 </TitleStyle>
                 <TeamStyle>
                     <CharacterCard character={this.props.team.characterOne[0]} />
@@ -55,7 +55,7 @@ class TeamCard extends Component {
                 </TeamStyle>
                 <ul>
                     {this.state.editToggle ? <li><RaisedButton label="Cancel" onClick={this.changeEditToggle} /></li> :
-                        <li><RaisedButton label="Edit Team" onClick={this.changeEditToggle} /></li>}
+                    <li><RaisedButton label="Edit Team" onClick={this.changeEditToggle} /></li>}
                     <li><RaisedButton label="Remove Team" onClick={this.deleteTeam} /></li>
                 </ul>
                 <div className="editTeamForm">

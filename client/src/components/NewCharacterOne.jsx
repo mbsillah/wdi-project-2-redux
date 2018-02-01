@@ -13,10 +13,6 @@ class NewCharacterOne extends Component {
         this.props.setCharacterOne(value)
     }
 
-    handleIdChange = (id) => {
-        console.log(id)
-        this.setState({ id })
-    }
 
     render() {
         return (

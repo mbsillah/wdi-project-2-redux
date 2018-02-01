@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import MVCICharacterSelector from './MVCICharacterSelector'
-
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import MVCINewCharacterOne from './MVCINewCharacterOne'
+import MVCINewCharacterTwo from './MVCINewCharacterTwo'
+import MVCINewInfinityStone from './MVCINewInfinityStone'
 
 class MVCINewTeam extends Component {
 
@@ -56,10 +59,12 @@ class MVCINewTeam extends Component {
             <div>
                 <h4>Create your new team. There cannot be two of the same characters on a team</h4>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="nickname" placeholder="Team Nickname" onChange={this.handleChange} />
-                    <MVCICharacterSelector mvciCharacters={this.props.mvciCharacters} setCharacterOne={this.setCharacterOne} setCharacterTwo={this.setCharacterTwo} setInfinityStone={this.setInfinityStone} />
-                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id ?
-                        <button type="button" disabled>Submit</button> : <button>Submit</button>}
+                    <TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} />
+                    <MVCINewCharacterOne mvciCharacters={this.props.mvciCharacters} setCharacterOne={this.setCharacterOne} />
+                    <MVCINewCharacterTwo mvciCharacters={this.props.mvciCharacters} setCharacterTwo={this.setCharacterTwo} />
+                    <MVCINewInfinityStone setInfinityStone={this.setInfinityStone} />
+                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id ?
+                        <RaisedButton label="Submit" disabled={true} /> : <RaisedButton label="Submit" type="submit" />}
                 </form>
             </div>
         );
