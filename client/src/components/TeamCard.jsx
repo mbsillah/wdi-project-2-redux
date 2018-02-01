@@ -3,6 +3,7 @@ import CharacterCard from './CharacterCard'
 import EditTeam from './EditTeam'
 import styled from 'styled-components'
 import axios from 'axios'
+import RaisedButton from 'material-ui/RaisedButton';
 
 const TeamStyle = styled.div`
     display: flex;
@@ -45,7 +46,7 @@ class TeamCard extends Component {
         return (
             <TeamContainer>
                 <TitleStyle>
-                    <h4>{this.props.team.nickname}</h4>
+                    <h2>{this.props.team.nickname}</h2>
                 </TitleStyle>
                 <TeamStyle>
                     <CharacterCard character={this.props.team.characterOne[0]} />
@@ -53,15 +54,18 @@ class TeamCard extends Component {
                     <CharacterCard character={this.props.team.characterThree[0]} />
                 </TeamStyle>
                 <ul>
-                    {this.state.editToggle ? <li><button onClick={this.changeEditToggle}>Cancel</button></li> : <li><button onClick={this.changeEditToggle}>Edit Team</button></li>}
-                    <li><button onClick={this.deleteTeam}>Delete Team</button></li>
+                    {this.state.editToggle ? <li><RaisedButton label="Cancel" onClick={this.changeEditToggle} /></li> :
+                        <li><RaisedButton label="Edit Team" onClick={this.changeEditToggle} /></li>}
+                    <li><RaisedButton label="Remove Team" onClick={this.deleteTeam} /></li>
                 </ul>
-                {this.state.editToggle ? <EditTeam
-                    player={this.props.player}
-                    characters={this.props.characters}
-                    team={this.props.team}
-                    updatingTeams={this.props.updatingTeams}
-                    changeEditToggle={this.changeEditToggle} /> : null}
+                <div className="editTeamForm">
+                    {this.state.editToggle ? <EditTeam
+                        player={this.props.player}
+                        characters={this.props.characters}
+                        team={this.props.team}
+                        updatingTeams={this.props.updatingTeams}
+                        changeEditToggle={this.changeEditToggle} /> : null}
+                </div>
             </TeamContainer>
         );
     }

@@ -3,6 +3,7 @@ import MVCICharacterCard from './MVCICharacterCard'
 import MVCIEditTeam from './MVCIEditTeam'
 import styled from 'styled-components'
 import axios from 'axios'
+import RaisedButton from 'material-ui/RaisedButton';
 
 const TeamStyle = styled.div`
     display: flex;
@@ -66,11 +67,12 @@ class MVCITeamCard extends Component {
                 <TeamStyle>
                     <MVCICharacterCard character={this.props.team.characterOne[0]} />
                     <MVCICharacterCard character={this.props.team.characterTwo[0]} />
-                    <span>{this.infinityStonePicture(this.props.team.infinityStone)}</span>
                 </TeamStyle>
+                {this.infinityStonePicture(this.props.team.infinityStone)}
                 <ul>
-                    {this.state.editToggle ? <li><button onClick={this.changeEditToggle}>Cancel</button></li> : <li><button onClick={this.changeEditToggle}>Edit Team</button></li>}
-                    <li><button onClick={this.deleteTeam}>Delete Team</button></li>
+                    {this.state.editToggle ? <li><RaisedButton label="Cancel" onClick={this.changeEditToggle} /></li> : 
+                    <li><RaisedButton label="Edit Team" onClick={this.changeEditToggle} /></li>}
+                    <li><RaisedButton label="Remove Team" onClick={this.deleteTeam} /></li>
                 </ul>
                 {this.state.editToggle ? <MVCIEditTeam
                     player={this.props.player}

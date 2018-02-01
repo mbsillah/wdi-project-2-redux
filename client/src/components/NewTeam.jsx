@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import CharacterSelector from './CharacterSelector'
+import RaisedButton from 'material-ui/RaisedButton';
+import NewCharacterOne from './NewCharacterOne'
+import NewCharacterTwo from './NewCharacterTwo'
+import NewCharacterThree from './NewCharacterThree'
 
 class NewTeam extends Component {
 
@@ -61,9 +64,12 @@ class NewTeam extends Component {
                 <h4>Create your new team. There cannot be two or more of the same characters on a team</h4>
                 <form onSubmit={this.handleSubmit}>
                     <input type="nickname" placeholder="Team Nickname" onChange={this.handleChange} />
-                    <CharacterSelector characters={this.props.characters} setCharacterOne={this.setCharacterOne} setCharacterTwo={this.setCharacterTwo} setCharacterThree={this.setCharacterThree} />
-                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || this.state.characterTwo[0]._id === this.state.characterThree[0]._id || this.state.characterOne[0]._id === this.state.characterThree[0]._id ? 
-                    <button type="button" disabled>Submit</button> : <button>Submit</button> }
+                    <NewCharacterOne characters={this.props.characters} setCharacterOne={this.setCharacterOne}/>
+                    <NewCharacterTwo characters={this.props.characters} setCharacterTwo={this.setCharacterTwo}/>
+                    <NewCharacterThree characters={this.props.characters} setCharacterThree={this.setCharacterThree}/>
+                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || this.state.characterTwo[0]._id === this.state.characterThree[0]._id || this.state.characterOne[0]._id === this.state.characterThree[0]._id ||
+                    !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id || !this.state.characterThree[0]._id? 
+                    <RaisedButton label="Submit" disabled={true} /> : <RaisedButton label="Submit" type="submit"/> }
                 </form>
             </div>
         );
@@ -71,3 +77,5 @@ class NewTeam extends Component {
 }
 
 export default NewTeam;
+
+//<CharacterSelector characters={this.props.characters} setCharacterOne={this.setCharacterOne} setCharacterTwo={this.setCharacterTwo} setCharacterThree={this.setCharacterThree} />

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import { Link } from 'react-router-dom';
 import styled from 'styled-components'
 import TeamContainer from './TeamContainer'
 import MVCITeamContainer from './MVCITeamContainer'
 import NewTeam from './NewTeam'
 import MVCINewTeam from './MVCINewTeam'
+import RaisedButton from 'material-ui/RaisedButton';
 
 const PlayerStyle = styled.div`
     h1 {
@@ -83,7 +83,7 @@ class Player extends Component {
             <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
                 {this.state.player.twitter ? <p>Follow me on <a target="_blank" href={`https://twitter.com/${this.state.player.twitter}`}>Twitter</a></p> : null}
-                <p><Link to={`/player/${this.state.player._id}/edit`}>Edit Profile</Link></p>
+                <RaisedButton label='Edit Profile' href={`/player/${this.state.player._id}/edit`} />
                 <img className="profilePic" src={this.state.player.img} alt={this.state.player.firstName} />
                 <TeamContainer player={this.state.player} 
                     characters={this.state.characters} 
@@ -94,7 +94,7 @@ class Player extends Component {
                     teams={this.state.teams}
                     toggleNewTeamForm={this.toggleNewTeamForm}
                     updatingTeams={this.updatingTeams} /> : null}
-                {this.state.newTeamForm ? <button onClick={() => this.toggleNewTeamForm()}>Cancel</button> : <button onClick={() => this.toggleNewTeamForm()}>Add A New UMVC3 Team</button>}
+                {this.state.newTeamForm ? <RaisedButton label="Cancel" onClick={() => this.toggleNewTeamForm()} /> : <RaisedButton label="Add A New UMVC3 Team" onClick={() => this.toggleNewTeamForm()} />}
                 <MVCITeamContainer player={this.state.player}
                     mvciTeams={this.state.mvciTeams}
                     mvciCharacters={this.state.mvciCharacters}
@@ -104,7 +104,7 @@ class Player extends Component {
                     mvciTeams={this.state.mvciTeams}
                     updatingTeams={this.updatingTeams}
                     toggleNewMVCITeamForm={this.toggleNewMVCITeamForm} /> : null}
-                {this.state.newTeamForm ? <button onClick={() => this.toggleNewMVCITeamForm()}>Cancel</button> : <button onClick={() => this.toggleNewMVCITeamForm()}>Add A New MVCI Team</button>}
+                {this.state.newTeamForm ? <RaisedButton className="newTeamButton" label="Cancel" onClick={() => this.toggleNewMVCITeamForm()} /> : <RaisedButton label="Add A New MVCI Team" onClick={() => this.toggleNewMVCITeamForm()} />}
             </PlayerStyle>
         );
     }
