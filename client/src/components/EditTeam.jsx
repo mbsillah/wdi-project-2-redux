@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import styled from 'styled-components'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import EditCharacterOne from './EditCharacterOne'
 import EditCharacterTwo from './EditCharacterTwo'
 import EditCharacterThree from './EditCharacterThree'
+
+const FormStyle = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
+const ButtonStyle = styled.div`
+    display: flex;
+    padding-bottom: 30px; 
+    justify-content: center;
+`
 
 class EditTeam extends Component {
 
@@ -73,14 +85,20 @@ class EditTeam extends Component {
             <div>
                 <p className="characterWarning">There cannot be two or more of the same characters on a team!</p>
                 <form onSubmit={this.handleSubmit}>
-                    <TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} />
-                    <EditCharacterOne characters={this.props.characters} characterOne={this.state.characterOne} setCharacterOne={this.setCharacterOne} />
-                    <EditCharacterTwo characters={this.props.characters} characterTwo={this.state.characterTwo} setCharacterTwo={this.setCharacterTwo} />
-                    <EditCharacterThree characters={this.props.characters} characterThree={this.state.characterThree} setCharacterThree={this.setCharacterThree} />
+                    <FormStyle>
+                    <ul>
+                        <li><TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} /></li>
+                        <li><EditCharacterOne characters={this.props.characters} characterOne={this.state.characterOne} setCharacterOne={this.setCharacterOne} /></li>
+                        <li><EditCharacterTwo characters={this.props.characters} characterTwo={this.state.characterTwo} setCharacterTwo={this.setCharacterTwo} /></li>
+                        <li><EditCharacterThree characters={this.props.characters} characterThree={this.state.characterThree} setCharacterThree={this.setCharacterThree} /></li>
+                    </ul>
+                    </FormStyle>
+                    <ButtonStyle>
                     {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || this.state.characterTwo[0]._id === this.state.characterThree[0]._id ||
                         this.state.characterOne[0]._id === this.state.characterThree[0]._id ||
                         !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id || !this.state.characterThree[0]._id ?
-                        <RaisedButton label="Save" disabled={true} /> : <RaisedButton label="Save" type="submit" />}
+                        <RaisedButton label="Save" disabled={true} /> : <RaisedButton backgroundColor='#66B266' label="Save" type="submit" />}
+                    </ButtonStyle>    
                 </form>
             </div>
         );

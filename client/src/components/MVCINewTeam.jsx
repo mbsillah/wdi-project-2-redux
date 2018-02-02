@@ -1,10 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import styled from 'styled-components'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MVCINewCharacterOne from './MVCINewCharacterOne'
 import MVCINewCharacterTwo from './MVCINewCharacterTwo'
 import MVCINewInfinityStone from './MVCINewInfinityStone'
+
+const FormStyle = styled.div`
+    display: flex;
+    justify-content: center;
+    ul {
+        list-style: none;
+    }
+`
+
+const ButtonStyle = styled.div`
+     display: flex;
+    justify-content: center;
+`
+
+const TitleStyle = styled.div`
+    display: flex;
+    justify-content: center;
+`
 
 class MVCINewTeam extends Component {
 
@@ -57,14 +76,22 @@ class MVCINewTeam extends Component {
     render() {
         return (
             <div>
-                <h4>Create your new team. There cannot be two of the same characters on a team</h4>
+                <TitleStyle>
+                    <h4>Create your new team. There cannot be two of the same characters on a team</h4>
+                </TitleStyle>
                 <form onSubmit={this.handleSubmit}>
-                    <TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} />
-                    <MVCINewCharacterOne mvciCharacters={this.props.mvciCharacters} setCharacterOne={this.setCharacterOne} />
-                    <MVCINewCharacterTwo mvciCharacters={this.props.mvciCharacters} setCharacterTwo={this.setCharacterTwo} />
-                    <MVCINewInfinityStone setInfinityStone={this.setInfinityStone} />
-                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id ?
-                        <RaisedButton label="Submit" disabled={true} /> : <RaisedButton label="Submit" type="submit" />}
+                    <FormStyle>
+                        <ul>
+                            <li><TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} /></li>
+                            <li><MVCINewCharacterOne mvciCharacters={this.props.mvciCharacters} setCharacterOne={this.setCharacterOne} /></li>
+                            <li><MVCINewCharacterTwo mvciCharacters={this.props.mvciCharacters} setCharacterTwo={this.setCharacterTwo} /></li>
+                            <li><MVCINewInfinityStone setInfinityStone={this.setInfinityStone} /></li>
+                        </ul>
+                    </FormStyle>
+                    <ButtonStyle>
+                        {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id ?
+                            <RaisedButton label="Submit" disabled={true} /> : <RaisedButton label="Submit" type="submit" />}
+                    </ButtonStyle>
                 </form>
             </div>
         );

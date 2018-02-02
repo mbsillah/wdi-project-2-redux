@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
 import axios from 'axios'
+import styled from 'styled-components'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MVCIEditCharacterOne from './MVCIEditCharacterOne'
 import MVCIEditCharacterTwo from './MVCIEditCharacterTwo'
 import MVCIEditInfinityStone from './MVCIEditInfinityStone'
+
+const FormStyle = styled.div`
+    display: flex;
+    justify-content: center;
+`
+
+const ButtonStyle = styled.div`
+    display: flex;
+    padding-bottom: 30px;
+    justify-content: center;
+`
 
 class MVCIEditTeam extends Component {
 
@@ -68,12 +80,18 @@ class MVCIEditTeam extends Component {
             <div>
                 <p className="characterWarning">There cannot be two of the same characters on a team!</p>
                 <form onSubmit={this.handleSubmit}>
-                    <TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} />
-                    <MVCIEditCharacterOne characterOne={this.state.characterOne} mvciCharacters={this.props.mvciCharacters} />
-                    <MVCIEditCharacterTwo characterTwo={this.state.characterTwo} mvciCharacters={this.props.mvciCharacters} />
-                    <MVCIEditInfinityStone infinityStone={this.state.infinityStone} setInfinityStone={this.setInfinityStone} />
-                    {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id ?
-                        <RaisedButton label="Save" disabled={true} /> : <RaisedButton label="Save" type="submit" />}
+                    <FormStyle>
+                        <ul>
+                            <li><TextField defaultValue={this.state.nickname} floatingLabelText="Team Nickname" onChange={this.handleChange} /></li>
+                            <li><MVCIEditCharacterOne characterOne={this.state.characterOne} mvciCharacters={this.props.mvciCharacters} setCharacterOne={this.setCharacterOne} /></li>
+                            <li><MVCIEditCharacterTwo characterTwo={this.state.characterTwo} mvciCharacters={this.props.mvciCharacters} setCharacterTwo={this.setCharacterTwo} /></li>
+                            <li><MVCIEditInfinityStone infinityStone={this.state.infinityStone} setInfinityStone={this.setInfinityStone} /></li>
+                        </ul>
+                    </FormStyle>
+                    <ButtonStyle>
+                        {this.state.characterOne[0]._id === this.state.characterTwo[0]._id || !this.state.characterOne[0]._id || !this.state.characterTwo[0]._id ?
+                            <RaisedButton label="Save" disabled={true} /> : <RaisedButton backgroundColor='#66B266' label="Save" type="submit" />}
+                    </ButtonStyle>
                 </form>
             </div>
         );

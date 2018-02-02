@@ -15,7 +15,7 @@ class MVCIEditCharacterTwo extends Component {
 
     handleChange = (event, index, value) => {
         this.setState({ value })
-        this.props.setCharacterOne(value)
+        this.props.setCharacterTwo(value)
     }
 
     render() {

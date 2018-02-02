@@ -22,6 +22,7 @@ class MVCINewCharacterOne extends Component {
         return (
             <div>
                 <SelectField floatingLabelText="Character 2" value={this.state.value} onChange={this.handleChange}>
+                    <MenuItem value='1' primaryText="Select A Character" />
                     {this.props.mvciCharacters.map((character, index) => {
                         return <MenuItem primaryText={character.name} key={index} value={character._id} />
                     })}

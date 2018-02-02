@@ -4,6 +4,7 @@ import EditTeam from './EditTeam'
 import styled from 'styled-components'
 import axios from 'axios'
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 const TeamStyle = styled.div`
     display: flex;
@@ -11,16 +12,20 @@ const TeamStyle = styled.div`
 `
 
 const TitleStyle = styled.div`
-    text-align: center
+    text-align: center;
+    h2 {
+        margin: 30px;
+        padding-top: 30px;
+    }
 `
 
 const TeamContainer = styled.div`
-    border-style: solid;
     ul {
         list-style: none;
         display: flex;
         justify-content: space-around;
     }
+
 `
 
 class TeamCard extends Component {
@@ -44,29 +49,31 @@ class TeamCard extends Component {
 
     render() {
         return (
-            <TeamContainer>
-                <TitleStyle>
-                    <h2>- {this.props.team.nickname} -</h2>
-                </TitleStyle>
-                <TeamStyle>
-                    <CharacterCard character={this.props.team.characterOne[0]} />
-                    <CharacterCard character={this.props.team.characterTwo[0]} />
-                    <CharacterCard character={this.props.team.characterThree[0]} />
-                </TeamStyle>
-                <ul>
-                    {this.state.editToggle ? <li><RaisedButton label="Cancel" onClick={this.changeEditToggle} /></li> :
-                    <li><RaisedButton label="Edit Team" onClick={this.changeEditToggle} /></li>}
-                    <li><RaisedButton label="Remove Team" onClick={this.deleteTeam} /></li>
-                </ul>
-                <div className="editTeamForm">
-                    {this.state.editToggle ? <EditTeam
-                        player={this.props.player}
-                        characters={this.props.characters}
-                        team={this.props.team}
-                        updatingTeams={this.props.updatingTeams}
-                        changeEditToggle={this.changeEditToggle} /> : null}
-                </div>
-            </TeamContainer>
+            <Paper className="teamCard" zDepth={3}>
+                <TeamContainer>
+                    <TitleStyle>
+                        <h2>- {this.props.team.nickname} -</h2>
+                    </TitleStyle>
+                    <TeamStyle>
+                        <CharacterCard character={this.props.team.characterOne[0]} />
+                        <CharacterCard character={this.props.team.characterTwo[0]} />
+                        <CharacterCard character={this.props.team.characterThree[0]} />
+                    </TeamStyle>
+                    <ul>
+                        {this.state.editToggle ? <li><RaisedButton backgroundColor="#FFFF7F" labelColor='white' className="teamCardButton" label="Cancel" onClick={this.changeEditToggle} /></li> :
+                            <li><RaisedButton backgroundColor="#FFFF7F" labelColor='white' className="teamCardButton" label="Edit Team" onClick={this.changeEditToggle} /></li>}
+                        <li><RaisedButton backgroundColor="#FF6666" labelColor='white' className="teamCardButton" label="Remove Team" onClick={this.deleteTeam} /></li>
+                    </ul>
+                    <div className="editTeamForm">
+                        {this.state.editToggle ? <EditTeam
+                            player={this.props.player}
+                            characters={this.props.characters}
+                            team={this.props.team}
+                            updatingTeams={this.props.updatingTeams}
+                            changeEditToggle={this.changeEditToggle} /> : null}
+                    </div>
+                </TeamContainer>
+            </Paper>
         );
     }
 }

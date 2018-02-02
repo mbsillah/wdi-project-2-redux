@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios'
 import styled from 'styled-components'
 import TeamContainer from './TeamContainer'
@@ -7,10 +8,23 @@ import NewTeam from './NewTeam'
 import MVCINewTeam from './MVCINewTeam'
 import RaisedButton from 'material-ui/RaisedButton';
 
+
 const PlayerStyle = styled.div`
+    display: flex;
+    flex-direction: column;
     h1 {
         text-align: center;
+        margin: 50px;
     }
+    p {
+        text-align: center;
+    }
+`
+
+const ButtonStyle = styled.div`
+    display: flex;
+    justify-content: center;
+    margin-top: 25px
 `
 
 class Player extends Component {
@@ -83,29 +97,33 @@ class Player extends Component {
             <PlayerStyle>
                 <h1>{this.state.player.firstName} "{this.state.player.gamertag}" {this.state.player.lastName}</h1>
                 {this.state.player.twitter ? <p>Follow me on <a target="_blank" href={`https://twitter.com/${this.state.player.twitter}`}>Twitter</a></p> : null}
-                <RaisedButton label='Edit Profile' href={`/player/${this.state.player._id}/edit`} />
-                {this.state.player.img ? <img className="profilePic" src={this.state.player.img} alt={this.state.player.firstName} /> : 
-                <img className="profilePic" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt={this.state.player.firstName} />}
-                <TeamContainer player={this.state.player} 
-                    characters={this.state.characters} 
-                    teams={this.state.teams} 
+                {this.state.player.img ? <img className="profilePic" src={this.state.player.img} alt={this.state.player.firstName} /> :
+                    <img className="profilePic" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt={this.state.player.firstName} />}
+                <Link to={`/player/${this.state.player._id}/edit`}><p>Edit Profile</p></Link>
+                <TeamContainer player={this.state.player}
+                    characters={this.state.characters}
+                    teams={this.state.teams}
                     updatingTeams={this.updatingTeams} />
                 {this.state.newTeamForm ? <NewTeam player={this.state.player}
                     characters={this.state.characters}
                     teams={this.state.teams}
                     toggleNewTeamForm={this.toggleNewTeamForm}
                     updatingTeams={this.updatingTeams} /> : null}
-                {this.state.newTeamForm ? <RaisedButton label="Cancel" onClick={() => this.toggleNewTeamForm()} /> : <RaisedButton label="Add A New UMVC3 Team" onClick={() => this.toggleNewTeamForm()} />}
+                <ButtonStyle>
+                    {this.state.newTeamForm ? <RaisedButton className='changeButton' label="Cancel" onClick={() => this.toggleNewTeamForm()} /> : <RaisedButton backgroundColor='#9BC2CF' labelColor='white' className='changeButton' label="Add A New UMVC3 Team" onClick={() => this.toggleNewTeamForm()} />}
+                </ButtonStyle>
                 <MVCITeamContainer player={this.state.player}
                     mvciTeams={this.state.mvciTeams}
                     mvciCharacters={this.state.mvciCharacters}
                     updatingTeams={this.updatingTeams} />
-                {this.state.newMVCITeamForm ? <MVCINewTeam player={this.state.player} 
+                {this.state.newMVCITeamForm ? <MVCINewTeam player={this.state.player}
                     mvciCharacters={this.state.mvciCharacters}
                     mvciTeams={this.state.mvciTeams}
                     updatingTeams={this.updatingTeams}
                     toggleNewMVCITeamForm={this.toggleNewMVCITeamForm} /> : null}
-                {this.state.newMVCITeamForm ? <RaisedButton className="newTeamButton" label="Cancel" onClick={() => this.toggleNewMVCITeamForm()} /> : <RaisedButton label="Add A New MVCI Team" onClick={() => this.toggleNewMVCITeamForm()} />}
+                <ButtonStyle>
+                    {this.state.newMVCITeamForm ? <RaisedButton className='changeButton' label="Cancel" onClick={() => this.toggleNewMVCITeamForm()} /> : <RaisedButton backgroundColor='#9BC2CF' labelColor='white' className='changeButton' label="Add A New MVCI Team" onClick={() => this.toggleNewMVCITeamForm()} />}
+                </ButtonStyle>
             </PlayerStyle>
         );
     }
