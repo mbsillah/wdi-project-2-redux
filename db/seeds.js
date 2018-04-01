@@ -14,9 +14,6 @@ Player.remove({}, (err) => {
 Character.remove({}, (err) => {
     console.log(err);
 })
-MVCICharacter.remove({}, (err) => {
-    console.log(err);
-})
 Team.remove({}, (err) => {
     console.log(err)
 })
@@ -116,17 +113,12 @@ musa.save()
     })
 
 
-const saveCharacters = (umvc3, mvci) => {
+const saveCharacters = (umvc3) => {
     umvc3.forEach(async (character) => {
         await character.save()
         console.log(`${character.name} saved!`)
     })
-    mvci.forEach(async (character) => {
-        await character.save()
-        console.log(`${character.name} saved!`)
-        db.close()
-    })
     mongoose.connection.close();
 }
 
-saveCharacters(characters ,mvciCharacters);
+saveCharacters(characters);

@@ -20,8 +20,8 @@ const TeamSchema = new Schema({
 
 const MVCITeamSchema = new Schema({
     nickname: String,
-    characterOne: [CharacterSchema],
-    characterTwo: [CharacterSchema],
+    characterOne: [MVCICharacterSchema],
+    characterTwo: [MVCICharacterSchema],
     infinityStone: String
 })
 
