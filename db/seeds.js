@@ -1,6 +1,7 @@
 require('dotenv').config()
 const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGODB_URI, { useMongoClient: true })
+//mongoose.connect("mongodb://heroku_ggxvwf3j:glsk8q3c03lh1dtoaebt87472l@ds123976.mlab.com:23976/heroku_ggxvwf3j")
 mongoose.Promise = global.Promise
 
 const { Player, Character, MVCICharacter, Team, MVCITeam } = require('./schema')
@@ -11,6 +12,9 @@ Player.remove({}, (err) => {
     console.log(err);
 })
 Character.remove({}, (err) => {
+    console.log(err);
+})
+MVCICharacter.remove({}, (err) => {
     console.log(err);
 })
 Team.remove({}, (err) => {
@@ -112,8 +116,17 @@ musa.save()
     })
 
 
-characters.forEach(async (character) => {
-    await character.save()
-    console.log(`${character.name} saved!`)
+const saveCharacters = (umvc3, mvci) => {
+    umvc3.forEach(async (character) => {
+        await character.save()
+        console.log(`${character.name} saved!`)
+    })
+    mvci.forEach(async (character) => {
+        await character.save()
+        console.log(`${character.name} saved!`)
+        db.close()
+    })
     mongoose.connection.close();
-})
+}
+
+saveCharacters(characters ,mvciCharacters);
