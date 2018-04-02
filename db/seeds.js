@@ -113,12 +113,10 @@ musa.save()
     })
 
 
-const saveCharacters = (umvc3) => {
-    umvc3.forEach(async (character) => {
-        await character.save()
-        console.log(`${character.name} saved!`)
-    })
+characters.forEach(async (character) => {
+    await character.save()
+    console.log(`${character.name} saved!`)
     mongoose.connection.close();
-}
+})
 
-saveCharacters(characters);
+

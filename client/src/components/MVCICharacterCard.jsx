@@ -3,7 +3,9 @@ import React from 'react';
 const MVCICharacterCard = (props) => {
     return (
         <div>
-            <img className="mvciCharacterPic" src={props.character.img} alt={props.character.name} />
+            <div className="mvciImgContainer">
+                <img className="mvciCharacterPic" src={props.character.img} alt={props.character.name} />
+            </div>
             <p>{props.character.name}</p>
         </div>
     );

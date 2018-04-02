@@ -10,6 +10,7 @@ import Paper from 'material-ui/Paper';
 const TeamStyle = styled.div`
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
 `
 
 const TitleStyle = styled.div`
